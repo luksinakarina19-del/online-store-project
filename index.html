@@ -1,8 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head><title>Магазин</title></head>
+<head>
+    <title>Магазин</title>
+</head>
 <body>
     <h1>Главная страница магазина</h1>
-    <button>Купить</button>
+    
+    <!-- Контейнер для вывода данных с сервера -->
+    <div id="product-list">Загрузка товаров...</div> 
+    
+    <button id="buy-button">Купить</button>
+
+    <script>
+        // Связь с сервером (Клиент-Сервер)
+        async function loadProducts() {
+            try {
+                // ВАЖНО: Замени этот URL на реальный адрес твоего бэкенда!
+                const response = await fetch('http://localhost:5000/api/products'); 
+                const products = await response.json();
+                
+                const listDiv = document.getElementById('product-list');
+                listDiv.innerHTML = ''; // Очищаем "Загрузка..."
+                
+                // Выводим данные, полученные от сервера
+                products.forEach(product => {
+                    const p = document.createElement('p');
+                    p.textContent = `${product.name} - ${product.price} руб.`;
+                    listDiv.appendChild(p);
+                });
+            } catch (error) {
+                document.getElementById('product-list').textContent = 'Ошибка загрузки данных с сервера';
+                console.error(error);
+            }
+        }
+
+        // Обработчик кнопки "Купить"
+        document.getElementById('buy-button').addEventListener('click', () => {
+            alert('Запрос на покупку отправлен на сервер!');
+        });
+
+        // Запускаем загрузку при открытии страницы
+        loadProducts();
+    </script>
 </body>
 </html>
