@@ -15,7 +15,7 @@
         // Связь с сервером (Клиент-Сервер)
         async function loadProducts() {
             try {
-                // Замените этот URL на реальный адрес вашего бэкенда
+                // ВАЖНО: Замени этот URL на реальный адрес твоего бэкенда!
                 const response = await fetch('http://localhost:5000/api/products'); 
                 const products = await response.json();
                 
@@ -37,7 +37,6 @@
         // Обработчик кнопки "Купить"
         document.getElementById('buy-button').addEventListener('click', () => {
             alert('Запрос на покупку отправлен на сервер!');
-            // Здесь тоже можно добавить fetch-запрос на сервер (например, POST /api/buy)
         });
 
         // Запускаем загрузку при открытии страницы
